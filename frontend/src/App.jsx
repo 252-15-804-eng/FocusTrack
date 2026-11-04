@@ -16,7 +16,7 @@ import {
 import Auth from "./Auth";
 import "./App.css";
 
-const API_URL = "http://127.0.0.1:8001";
+const API_URL = "https://focustrack-api-qbfw.onrender.com";
 
 const todayKey = () => {
   const d = new Date();

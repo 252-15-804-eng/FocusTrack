@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_URL = "http://127.0.0.1:8001";
+const API_URL = "https://focustrack-api-qbfw.onrender.com";
 
 export default function Auth({ onLogin }) {
   const [loginType, setLoginType] = useState("user");

@@ -7,7 +7,24 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
-*.db
-*.sqlite
-*.sqlite3
-uploads/
+*.dbgit commit -m
+# Python cache
+**/__pycache__/
+**/*.py[cod]
+
+# Environment variables
+**/.env
+**/.env.*
+!**/.env.example
+
+# Database
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+
+# Uploaded files
+**/uploads/
+
+# Node
+**/node_modules/
+**/dist/

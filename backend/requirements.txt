@@ -4,3 +4,4 @@ sqlalchemy
 pwdlib[argon2]
 python-jose[cryptography]
 python-dotenv
+python-multipart

@@ -1145,8 +1145,7 @@ def delete_note(
 # PDF STORAGE CONFIGURATION
 # ==========================================
 
-UPLOAD_DIR = Path(__file__).resolve().parent / "uploads"
-
+UPLOAD_DIR = Path("/tmp/uploads")
 UPLOAD_DIR.mkdir(
     parents=True,
     exist_ok=True

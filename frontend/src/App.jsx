@@ -1,4 +1,3 @@
-
 import { useEffect, useMemo, useState } from "react";
 import {
   LayoutDashboard, Clock, ChartNoAxesColumn, History,
@@ -521,9 +520,7 @@ export default function App() {
       setPdfBusy(false);
       event.target.value = "";
     }
-  };
-
-  const openPdf = async (pdf) => {
+  };  const openPdf = async (pdf) => {
     try {
       const response = await fetch(
         `${API_URL}/pdfs/${pdf.id}/view`,
@@ -974,9 +971,7 @@ export default function App() {
         </p>
       )}
     </section>
-  );
-
-  // ==========================================
+  );  // ==========================================
   // USER DASHBOARD CALCULATIONS
   // ==========================================
 
@@ -1410,7 +1405,7 @@ export default function App() {
       )}
     </section>
   );
-  
+
   // ==========================================
   // USER DASHBOARD
   // ==========================================
@@ -1622,9 +1617,7 @@ export default function App() {
         </div>
       </section>
     </>
-  );
-
-  // ==========================================
+  );  // ==========================================
   // TRACKER PAGE
   // ==========================================
 
@@ -1779,7 +1772,7 @@ export default function App() {
         />
 
         <StatCard
-          icon=<TrendingUp />
+          icon={<TrendingUp />}
           title="Total Sessions"
           value={sessions.length}
           color="purple"
@@ -2190,8 +2183,7 @@ export default function App() {
     : navItems;
 
   const currentPage = pageContent[page] ? page : "Dashboard";
-
-  // ==========================================
+    // ==========================================
   // MAIN APP LAYOUT
   // ==========================================
 
@@ -2546,4 +2538,3 @@ function SessionTable({ sessions }) {
     </div>
   );
 }
-

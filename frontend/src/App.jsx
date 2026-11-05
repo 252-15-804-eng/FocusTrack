@@ -1133,207 +1133,400 @@ export default function App() {
   // NOTES & PDF LIBRARY PAGE
   // ==========================================
 
-  const renderNotesLibrary = () => (
-    <section className="page-content">
-      <PageTitle
-        title="Notes & PDFs"
-        subtitle="Save your study notes and manage your PDF documents."
-      />
+   // ==========================================
+  // PREMIUM NOTES & PDF LIBRARY
+  // ==========================================
 
-      <div className="library-tabs">
+  const renderNotesLibrary = () => (
+    <section className="page-content notes-library-page">
+
+      {/* PAGE HEADER */}
+      <div className="notes-hero">
         <div>
-          <h3><FileText size={20} /> My Study Library</h3>
-          <p className="muted">
-            Your personal notes and PDF documents.
+          <span className="notes-eyebrow">
+            <BookOpen size={15} /> PERSONAL STUDY SPACE
+          </span>
+
+          <h1>Notes & PDFs</h1>
+
+          <p>
+            Organize your knowledge, save important notes,
+            and keep all your study materials in one place.
           </p>
         </div>
 
-        <span className="status">
-          {notes.length} Notes · {pdfs.length} PDFs
-        </span>
+        <div className="notes-hero-icon">
+          <FileText size={42} />
+        </div>
       </div>
 
-      <div className="library-layout">
+      {/* LIBRARY OVERVIEW */}
+      <div className="notes-overview">
 
-        {/* NOTES SECTION */}
+        <div className="notes-overview-card">
+          <div className="notes-overview-icon purple">
+            <FileText size={23} />
+          </div>
 
-        <div className="panel library-editor">
-          <div className="panel-heading">
-            <h3>
-              <FileText size={20} />
-              {selectedNoteId ? "Edit Note" : "Create New Note"}
-            </h3>
+          <div>
+            <span>Total Notes</span>
+            <h2>{notes.length}</h2>
+          </div>
+        </div>
+
+        <div className="notes-overview-card">
+          <div className="notes-overview-icon blue">
+            <FileUp size={23} />
+          </div>
+
+          <div>
+            <span>PDF Documents</span>
+            <h2>{pdfs.length}</h2>
+          </div>
+        </div>
+
+        <div className="notes-overview-card">
+          <div className="notes-overview-icon green">
+            <BookOpen size={23} />
+          </div>
+
+          <div>
+            <span>Subjects</span>
+            <h2>{subjects.length}</h2>
+          </div>
+        </div>
+
+      </div>
+
+      {/* NOTES WORKSPACE */}
+      <div className="notes-workspace">
+
+        {/* NOTE EDITOR */}
+        <div className="panel premium-note-editor">
+
+          <div className="premium-section-heading">
+            <div className="premium-heading-icon">
+              <FileText size={21} />
+            </div>
+
+            <div>
+              <h3>
+                {selectedNoteId ? "Edit Your Note" : "Create New Note"}
+              </h3>
+
+              <p>
+                Write down your ideas and important study materials.
+              </p>
+            </div>
 
             <button
-              className="text-button"
+              className="premium-new-note"
               onClick={resetNoteEditor}
             >
+              <Plus size={17} />
               New Note
             </button>
           </div>
 
-          <div className="note-form">
-            <label>Note Title</label>
+          <div className="premium-note-form">
 
-            <input
-              type="text"
-              placeholder="Enter note title..."
-              value={noteTitle}
-              onChange={e => setNoteTitle(e.target.value)}
-            />
+            <div className="premium-form-group">
+              <label htmlFor="note-title">Note Title</label>
 
-            <label>Subject</label>
+              <input
+                id="note-title"
+                type="text"
+                placeholder="Give your note a title..."
+                value={noteTitle}
+                onChange={e => setNoteTitle(e.target.value)}
+              />
+            </div>
 
-            <select
-              value={noteSubject}
-              onChange={e => setNoteSubject(e.target.value)}
-            >
-              <option value="">Select Subject</option>
+            <div className="premium-form-group">
+              <label htmlFor="note-subject">Subject</label>
 
-              {subjects.map(item => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
+              <select
+                id="note-subject"
+                value={noteSubject}
+                onChange={e => setNoteSubject(e.target.value)}
+              >
+                <option value="">Select Subject</option>
 
-            <label>Note Content</label>
+                {subjects.map(item => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-            <textarea
-              rows={12}
-              placeholder="Write your study notes here..."
-              value={noteContent}
-              onChange={e => setNoteContent(e.target.value)}
-            />
+            <div className="premium-form-group">
+              <div className="premium-content-heading">
+                <label htmlFor="note-content">Note Content</label>
 
-            <div className="library-actions">
+                <span>Study Notes</span>
+              </div>
+
+              <textarea
+                id="note-content"
+                rows={12}
+                placeholder="Start writing your study notes here..."
+                value={noteContent}
+                onChange={e => setNoteContent(e.target.value)}
+              />
+            </div>
+
+            <div className="premium-note-actions">
+
               <button
-                className="primary-button"
+                className="premium-save-button"
                 onClick={saveNote}
               >
-                <Save size={17} />
+                <Save size={18} />
+
                 {selectedNoteId ? "Update Note" : "Save Note"}
               </button>
 
               <button
-                className="text-button"
+                className="premium-clear-button"
                 onClick={resetNoteEditor}
               >
                 Clear
               </button>
+
             </div>
           </div>
         </div>
 
         {/* SAVED NOTES */}
+        <div className="panel premium-saved-notes">
 
-        <div className="panel library-sidebar">
-          <h3>Saved Notes</h3>
+          <div className="premium-section-heading">
+            <div className="premium-heading-icon">
+              <BookOpen size={21} />
+            </div>
+
+            <div>
+              <h3>Saved Notes</h3>
+              <p>Your personal collection of study notes.</p>
+            </div>
+
+            <span className="premium-count">
+              {notes.length}
+            </span>
+          </div>
 
           {notes.length === 0 ? (
-            <p className="empty">
-              No notes yet. Create your first note.
-            </p>
+
+            <div className="premium-empty-state">
+              <div className="premium-empty-icon">
+                <FileText size={35} />
+              </div>
+
+              <h4>No Notes Yet</h4>
+
+              <p>
+                Your saved notes will appear here.
+                Create your first study note!
+              </p>
+
+            </div>
+
           ) : (
-            <div className="note-list">
+
+            <div className="premium-note-list">
+
               {notes.map(note => (
+
                 <div
-                  className={`note-item ${
+                  className={`premium-note-card ${
                     selectedNoteId === note.id ? "selected" : ""
                   }`}
                   key={note.id}
                 >
+
                   <button
-                    className="note-item-content"
+                    className="premium-note-open"
                     onClick={() => selectNote(note)}
                   >
-                    <strong>{note.title}</strong>
 
-                    <small>
-                      {note.subject || "General Study"}
-                    </small>
+                    <div className="premium-note-card-top">
+                      <div className="premium-note-file-icon">
+                        <FileText size={20} />
+                      </div>
+
+                      <span className="premium-note-subject">
+                        {note.subject || "General Study"}
+                      </span>
+                    </div>
+
+                    <h4>{note.title}</h4>
 
                     <p>
-                      {note.content?.slice(0, 75)}
-                      {note.content?.length > 75 ? "..." : ""}
+                      {note.content?.slice(0, 100)}
+                      {note.content?.length > 100 ? "..." : ""}
                     </p>
+
+                    <span className="premium-note-edit-hint">
+                      Click to edit note
+                    </span>
+
                   </button>
 
                   <button
-                    className="delete-button"
+                    className="premium-delete-button"
                     title="Delete note"
                     onClick={() => deleteNote(note.id)}
                   >
-                    <Trash2 size={16} />
+                    <Trash2 size={17} />
                   </button>
+
                 </div>
+
               ))}
+
             </div>
+
           )}
         </div>
+
       </div>
 
-      {/* PDF UPLOAD */}
+      {/* PDF UPLOAD SECTION */}
+      <div className="panel premium-pdf-upload">
 
-      <div className="panel pdf-upload-area">
-        <h3>
-          <FileUp size={21} /> Upload Study PDF
-        </h3>
+        <div className="premium-section-heading">
 
-        <p className="muted">
-          Upload your lecture slides, books, and study materials.
-          Maximum file size: 10 MB.
-        </p>
+          <div className="premium-heading-icon blue">
+            <FileUp size={22} />
+          </div>
 
-        <label>Choose Subject</label>
+          <div>
+            <h3>Upload Study Materials</h3>
 
-        <select
-          value={pdfSubject}
-          onChange={e => setPdfSubject(e.target.value)}
-        >
-          <option value="">Select Subject</option>
+            <p>
+              Upload your lecture slides, books and study PDFs.
+            </p>
+          </div>
 
-          {subjects.map(item => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
+        </div>
 
-        <div className="upload-control">
-          <input
-            type="file"
-            accept="application/pdf,.pdf"
-            onChange={handlePdfUpload}
-            disabled={pdfBusy}
-          />
+        <div className="premium-upload-box">
 
-          {pdfBusy && <p>Uploading PDF...</p>}
+          <div className="premium-upload-icon">
+            <FileUp size={35} />
+          </div>
+
+          <h4>Upload Your PDF Documents</h4>
+
+          <p>
+            Select a PDF file from your device.
+          </p>
+
+          <span className="premium-upload-limit">
+            PDF only · Maximum file size 10 MB
+          </span>
+
+          <div className="premium-upload-fields">
+
+            <div className="premium-form-group">
+              <label htmlFor="pdf-subject">Select Subject</label>
+
+              <select
+                id="pdf-subject"
+                value={pdfSubject}
+                onChange={e => setPdfSubject(e.target.value)}
+              >
+                <option value="">Select Subject</option>
+
+                {subjects.map(item => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <label className="premium-upload-button">
+              <FileUp size={18} />
+
+              {pdfBusy ? "Uploading..." : "Choose PDF File"}
+
+              <input
+                type="file"
+                accept="application/pdf,.pdf"
+                onChange={handlePdfUpload}
+                disabled={pdfBusy}
+              />
+            </label>
+
+          </div>
+
+          {pdfBusy && (
+            <p className="premium-upload-progress">
+              Your PDF is being uploaded. Please wait...
+            </p>
+          )}
+
         </div>
       </div>
 
-      {/* PDF LIST */}
+      {/* PDF DOCUMENT LIBRARY */}
+      <div className="panel premium-pdf-library">
 
-      <div className="panel">
-        <div className="panel-heading">
-          <h3>
-            <FileText size={20} /> My PDF Documents
-          </h3>
+        <div className="premium-section-heading">
 
-          <span className="status">
-            {pdfs.length} Documents
+          <div className="premium-heading-icon blue">
+            <FileText size={22} />
+          </div>
+
+          <div>
+            <h3>My PDF Documents</h3>
+
+            <p>
+              Access and manage your uploaded study materials.
+            </p>
+          </div>
+
+          <span className="premium-count">
+            {pdfs.length}
           </span>
+
         </div>
 
         {pdfs.length === 0 ? (
-          <p className="empty">
-            No PDF documents uploaded yet.
-          </p>
+
+          <div className="premium-empty-state">
+            <div className="premium-empty-icon">
+              <FileUp size={35} />
+            </div>
+
+            <h4>No PDF Documents</h4>
+
+            <p>
+              Your uploaded PDF documents will appear here.
+            </p>
+          </div>
+
         ) : (
-          <div className="pdf-grid">
+
+          <div className="premium-pdf-grid">
+
             {pdfs.map(pdf => (
-              <div className="pdf-card" key={pdf.id}>
-                <FileText size={35} />
+
+              <div className="premium-pdf-card" key={pdf.id}>
+
+                <div className="premium-pdf-card-header">
+
+                  <div className="premium-pdf-file-icon">
+                    <FileText size={28} />
+                  </div>
+
+                  <span className="premium-pdf-badge">
+                    PDF
+                  </span>
+
+                </div>
 
                 <h4>
                   {pdf.original_filename ||
@@ -1341,58 +1534,78 @@ export default function App() {
                     "PDF Document"}
                 </h4>
 
-                <p className="muted">
+                <p className="premium-pdf-subject">
+                  <BookOpen size={14} />
+
                   {pdf.subject || "General Study"}
                 </p>
 
-                <div className="pdf-card-actions">
+                <div className="premium-pdf-actions">
+
                   <button
-                    className="text-button"
                     onClick={() => openPdf(pdf)}
                     title="View PDF"
                   >
-                    <Eye size={17} /> View
+                    <Eye size={17} />
+                    View
                   </button>
 
                   <button
-                    className="text-button"
                     onClick={() => downloadPdf(pdf)}
                     title="Download PDF"
                   >
-                    <Download size={17} /> Download
+                    <Download size={17} />
+                    Download
                   </button>
 
                   <button
-                    className="delete-button"
+                    className="premium-pdf-delete"
                     onClick={() => deletePdf(pdf.id)}
                     title="Delete PDF"
                   >
                     <Trash2 size={17} />
                   </button>
+
                 </div>
+
               </div>
+
             ))}
+
           </div>
+
         )}
+
       </div>
 
       {/* PDF PREVIEW */}
-
       {pdfPreviewUrl && (
-        <div className="panel pdf-preview">
-          <div className="panel-heading">
-            <h3>{pdfPreviewName}</h3>
+
+        <div className="panel premium-pdf-preview">
+
+          <div className="premium-section-heading">
+
+            <div className="premium-heading-icon blue">
+              <FileText size={21} />
+            </div>
+
+            <div>
+              <h3>{pdfPreviewName}</h3>
+              <p>PDF Document Preview</p>
+            </div>
 
             <button
-              className="text-button"
+              className="premium-clear-button"
               onClick={() => {
                 URL.revokeObjectURL(pdfPreviewUrl);
                 setPdfPreviewUrl("");
                 setPdfPreviewName("");
               }}
             >
-              <X size={17} /> Close
+              <X size={17} />
+              Close
             </button>
+
           </div>
 
           <iframe
@@ -1401,8 +1614,11 @@ export default function App() {
             width="100%"
             height="600px"
           />
+
         </div>
+
       )}
+
     </section>
   );
 
